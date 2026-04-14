@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FinalProject.Map.Rooms
 {
-    internal class MonsterRoom : IRoom
+    internal class ExitRoom : IRoom
     {
         public int[,] Tiles { get; set; }
     }

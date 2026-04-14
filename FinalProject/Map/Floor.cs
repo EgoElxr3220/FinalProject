@@ -6,5 +6,6 @@ namespace FinalProject.Map
 {
     internal class Floor
     {
+
     }
 }
