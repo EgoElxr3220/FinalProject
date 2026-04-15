@@ -1,4 +1,5 @@
 ﻿using FinalProject.Interfaces;
+using FinalProject.Map.Rooms;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,14 +15,23 @@ namespace FinalProject
         public List<IItem> Inventory { get; set; }
         public int Row { get; set; }
         public int Column { get; set; }
+        public IRoom CurrentRoom { get; set; }
+        public int Position { get; set; }
+        public bool IsDead { get; set; } = false;
 
-
+        public Character(IRoom room)
+        {
+            CurrentRoom = room;
+            Position = CurrentRoom.Tiles[Row, Column];
+        }
 
         public void Move()
         {
             // Ask user for a direction
             // if it is valid move to that return the new location
             // if not tell the user the move is invalid
+            Console.WriteLine($"{Row}, {Column}");
+            Console.WriteLine($"{Position}");
             Console.WriteLine("What direction do you want to go? (use wasd)");
             ConsoleKeyInfo keyPress = Console.ReadKey(true);
             if (keyPress.Key == ConsoleKey.W)
@@ -34,11 +44,13 @@ namespace FinalProject
                 {
                     Console.WriteLine("You can't go that way. There's a wall.");
                 }
+                Position = CurrentRoom.Tiles[Row, Column];
                 Console.WriteLine($"{Row}, {Column}");
+                Console.WriteLine($"{Position}");
             }
             if (keyPress.Key == ConsoleKey.S)
             {
-                if (Row < 3)
+                if (Row < CurrentRoom.Rows-1)
                 {
                     Row += 1;
                 }
@@ -46,7 +58,9 @@ namespace FinalProject
                 {
                     Console.WriteLine("You can't go that way. There's a wall.");
                 }
+                Position = CurrentRoom.Tiles[Row, Column];
                 Console.WriteLine($"{Row}, {Column}");
+                Console.WriteLine($"{Position}");
             }
             if (keyPress.Key == ConsoleKey.A)
             {
@@ -58,11 +72,13 @@ namespace FinalProject
                 {
                     Console.WriteLine("You can't go that way. There's a wall.");
                 }
+                Position = CurrentRoom.Tiles[Row, Column];
                 Console.WriteLine($"{Row}, {Column}");
+                Console.WriteLine($"{Position}");
             }
             if (keyPress.Key == ConsoleKey.D)
             {
-                if (Column < 3)
+                if (Column < CurrentRoom.Columns-1)
                 {
                     Column += 1;
                 }
@@ -70,8 +86,15 @@ namespace FinalProject
                 {
                     Console.WriteLine("You can't go that way. There's a wall.");
                 }
+                Position = CurrentRoom.Tiles[Row, Column];
                 Console.WriteLine($"{Row}, {Column}");
+                Console.WriteLine($"{Position}");
             }
+            if (keyPress.Key == ConsoleKey.Enter)
+            {
+                IsDead = true;
+            }
+            
         }
 
     }

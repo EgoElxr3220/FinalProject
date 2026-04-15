@@ -7,6 +7,8 @@ namespace FinalProject.Map.Rooms
 {
     internal class MonsterRoom : IRoom
     {
+        public int Rows { get; set; }
+        public int Columns { get; set; }
         public int[,] Tiles { get; set; }
     }
 }

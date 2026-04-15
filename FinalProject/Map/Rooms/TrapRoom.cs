@@ -7,6 +7,15 @@ namespace FinalProject.Map.Rooms
 {
     internal class TrapRoom : IRoom
     {
-        public int[,] Tiles { get; set; }
+        public int Rows { get; set; } = 5;
+        public int Columns { get; set; } = 5;
+        public int[,] Tiles { get; set; } = new int[5,5]
+        {
+            { 0, 0, 1, 0, 0 },
+            { 0, 4, 0, 4, 0 },
+            { 1, 0, 4, 0, 1 },
+            { 0, 4, 0, 4, 0 },
+            { 0, 0, 1, 0, 0 }
+        };
     }
 }

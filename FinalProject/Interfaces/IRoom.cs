@@ -6,7 +6,9 @@ namespace FinalProject.Interfaces
 {
     internal interface IRoom
     {
-        public int[,] Tiles { get; set; }
+        public int Rows { get; set; }
+        public int Columns { get; set; }
+        public int[,] Tiles { get; set; } 
     }
 
     //public enum Tile

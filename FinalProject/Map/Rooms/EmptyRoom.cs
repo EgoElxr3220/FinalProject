@@ -7,17 +7,21 @@ namespace FinalProject.Map.Rooms
 {
     internal class EmptyRoom : IRoom
     {
-        public int[,] Tiles { get; set; }
-
-        public EmptyRoom()
-        {
-            Random rand = new Random();
-            Tiles = new int[3,3]
+        public int Rows { get; set; } = 3;
+        public int Columns { get; set; } = 3;
+        public static Random rand = new Random();
+        public int[,] Tiles { get; set; } = new int[3, 3]
             {
-                { 0, rand.Next(0,1), 0, },
-                { rand.Next(0,1), 0, rand.Next(0,1), },
-                { 0, rand.Next(0,1), 0, }
+                { 0, rand.Next(0,2), 0 },
+                { rand.Next(0,2), 0, rand.Next(0,2) },
+                { 0, rand.Next(0,2), 0 }
             };
-        }
+
+        //public EmptyRoom()
+        //{
+
+            
+            
+        //}
     }
 }
