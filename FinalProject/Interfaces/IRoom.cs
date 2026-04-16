@@ -21,5 +21,6 @@ namespace FinalProject.Interfaces
         Shop,
         SpecialShop,
         Boss,
+        FloorExit
     }
 }

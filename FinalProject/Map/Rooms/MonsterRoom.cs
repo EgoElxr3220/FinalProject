@@ -7,8 +7,15 @@ namespace FinalProject.Map.Rooms
 {
     internal class MonsterRoom : IRoom
     {
-        public int Rows { get; set; }
-        public int Columns { get; set; }
-        public int[,] Tiles { get; set; }
+        public int Rows { get; set; } = 5;
+        public int Columns { get; set; } = 5;
+        public int[,] Tiles { get; set; } = new int[5, 5]
+        {
+            { 0, 0, 1, 0, 0 },
+            { 0, 3, 0, 3, 0 },
+            { 1, 0, 0, 0, 1 },
+            { 0, 3, 0, 3, 0 },
+            { 0, 0, 1, 0, 0 }
+        };
     }
 }

@@ -1,13 +1,14 @@
 ﻿using FinalProject;
+using FinalProject.Map;
 using FinalProject.Map.Rooms;
 
 internal class Program
 {
     private static void Main(string[] args)
     {
-        EmptyRoom emptyRoom = new EmptyRoom();
+        Floor floor1 = new Floor();
         Character player = new Character("Bob");
-        player.GetPosition(emptyRoom);
+        player.GetPosition(floor1);
         Console.WriteLine(player.Name);
 
         int lines = 0;
@@ -19,31 +20,30 @@ internal class Program
                 break;
             }
             lines++;
-            if (lines == 10)
+            if (lines%10 == 0)
             {
                 Console.Clear();
-                lines = 0;
             }
         }
-        Console.Clear();
+        //Console.Clear();
 
-        TrapRoom trapRoom = new TrapRoom();
-        player.GetPosition(trapRoom);
+        //TrapRoom trapRoom = new TrapRoom();
+        //player.GetPosition(trapRoom);
 
-        lines = 0;
-        while (true)
-        {
-            player.Move();
-            if (player.IsDead)
-            {
-                break;
-            }
-            lines++;
-            if (lines == 10)
-            {
-                Console.Clear();
-                lines = 0;
-            }
-        }
+        //lines = 0;
+        //while (true)
+        //{
+        //    player.Move();
+        //    if (player.IsDead)
+        //    {
+        //        break;
+        //    }
+        //    lines++;
+        //    if (lines == 10)
+        //    {
+        //        Console.Clear();
+        //        lines = 0;
+        //    }
+        //}
     }
 }

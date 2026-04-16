@@ -1,4 +1,5 @@
 ﻿using FinalProject.Interfaces;
+using FinalProject.Map;
 using FinalProject.Map.Rooms;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,10 @@ namespace FinalProject
         public List<IItem> Inventory { get; set; }
         public int Row { get; set; }
         public int Column { get; set; }
+        public int X { get; set; } = 4;
+        public int Y { get; set; } = 2;
         public IRoom CurrentRoom { get; set; }
+        public Floor CurrentFloor { get; set; }
         public int Position { get; set; }
         public bool IsDead { get; set; } = false;
 
@@ -27,9 +31,10 @@ namespace FinalProject
             Damage = 2;
             Inventory = new List<IItem>();
         }
-        public void GetPosition(IRoom room)
+        public void GetPosition(Floor floor)
         {
-            CurrentRoom = room;
+            CurrentFloor = floor;
+            CurrentRoom = CurrentFloor.GetRoom(X,Y);
             Position = CurrentRoom.Tiles[Row, Column];
         }
 
@@ -48,6 +53,12 @@ namespace FinalProject
                 {
                     Row -= 1;
                 }
+                else if (Row == 0 && Position == 1)
+                {
+                    Row = CurrentRoom.Rows-1;
+                    X--;
+                    GetPosition(CurrentFloor);
+                }
                 else
                 {
                     Console.WriteLine("You can't go that way. There's a wall.");
@@ -61,6 +72,12 @@ namespace FinalProject
                 if (Row < CurrentRoom.Rows-1)
                 {
                     Row += 1;
+                }
+                else if (Row == CurrentRoom.Rows-1 && Position == 1)
+                {
+                    Row = 0;
+                    X++;
+                    GetPosition(CurrentFloor);
                 }
                 else
                 {
@@ -76,6 +93,12 @@ namespace FinalProject
                 {
                     Column -= 1;
                 }
+                else if (Column == 0 && Position == 1)
+                {
+                    Column = CurrentRoom.Columns - 1;
+                    Y--;
+                    GetPosition(CurrentFloor);
+                }
                 else
                 {
                     Console.WriteLine("You can't go that way. There's a wall.");
@@ -89,6 +112,12 @@ namespace FinalProject
                 if (Column < CurrentRoom.Columns-1)
                 {
                     Column += 1;
+                }
+                else if (Column == CurrentRoom.Columns - 1 && Position == 1)
+                {
+                    Column = 0;
+                    Y++;
+                    GetPosition(CurrentFloor);
                 }
                 else
                 {

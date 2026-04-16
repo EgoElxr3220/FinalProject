@@ -11,9 +11,9 @@ namespace FinalProject.Map.Rooms
         public int Columns { get; set; } = 3;
         public int[,] Tiles { get; set; } = new int[3, 3]
         {
-            {0, 0, 0 },
             {0, 1, 0 },
-            {0, 0, 0 }
+            {1, 8, 1 },
+            {0, 1, 0 }
         };
         
     }
