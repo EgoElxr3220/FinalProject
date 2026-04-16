@@ -7,5 +7,6 @@ namespace FinalProject.Equipment
 {
     internal abstract class Armor : IItem
     {
+        public int Defense { get; set; }
     }
 }

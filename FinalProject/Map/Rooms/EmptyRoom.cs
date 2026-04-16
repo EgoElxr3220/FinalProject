@@ -12,16 +12,9 @@ namespace FinalProject.Map.Rooms
         public static Random rand = new Random();
         public int[,] Tiles { get; set; } = new int[3, 3]
             {
-                { 0, rand.Next(0,2), 0 },
-                { rand.Next(0,2), 0, rand.Next(0,2) },
-                { 0, rand.Next(0,2), 0 }
+                { 0, 1, 0 },
+                { 1, 0, 1 },
+                { 0, 1, 0 }
             };
-
-        //public EmptyRoom()
-        //{
-
-            
-            
-        //}
     }
 }

@@ -19,7 +19,15 @@ namespace FinalProject
         public int Position { get; set; }
         public bool IsDead { get; set; } = false;
 
-        public Character(IRoom room)
+        public Character(string name)
+        {
+            Name = name;
+            Health = 10;
+            Defense = 10;
+            Damage = 2;
+            Inventory = new List<IItem>();
+        }
+        public void GetPosition(IRoom room)
         {
             CurrentRoom = room;
             Position = CurrentRoom.Tiles[Row, Column];

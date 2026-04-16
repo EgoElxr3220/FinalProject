@@ -6,10 +6,12 @@ internal class Program
     private static void Main(string[] args)
     {
         EmptyRoom emptyRoom = new EmptyRoom();
-        Character player = new Character(emptyRoom);
+        Character player = new Character("Bob");
+        player.GetPosition(emptyRoom);
+        Console.WriteLine(player.Name);
 
         int lines = 0;
-        while (true) 
+        while (true)
         {
             player.Move();
             if (player.IsDead)
@@ -26,13 +28,13 @@ internal class Program
         Console.Clear();
 
         TrapRoom trapRoom = new TrapRoom();
-        Character player2 = new Character(trapRoom);
+        player.GetPosition(trapRoom);
 
         lines = 0;
         while (true)
         {
-            player2.Move();
-            if (player2.IsDead)
+            player.Move();
+            if (player.IsDead)
             {
                 break;
             }

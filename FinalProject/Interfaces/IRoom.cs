@@ -11,8 +11,15 @@ namespace FinalProject.Interfaces
         public int[,] Tiles { get; set; } 
     }
 
-    //public enum Tile
-    //{
-
-    //}
+    public enum Tile
+    {
+        Empty = 0,
+        Exit,
+        Treasure,
+        Monster,
+        Trap,
+        Shop,
+        SpecialShop,
+        Boss,
+    }
 }
