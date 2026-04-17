@@ -46,11 +46,11 @@ namespace FinalProject.Combat
         public void GetPosition(Floor floor)
         {
             CurrentFloor = floor;
-            CurrentRoom = CurrentFloor.GetRoom(X,Y);
+            CurrentRoom = CurrentFloor.GetRoom(X, Y);
             Position = CurrentRoom.Tiles[Row, Column];
         }
 
-        public void Move()
+        public async Task Move()
         {
             // Ask user for a direction
             // if it is valid move to that return the new location
@@ -68,7 +68,7 @@ namespace FinalProject.Combat
                 }
                 else if (Row <= 0 && Position == 1)
                 {
-                    Row = CurrentRoom.Rows-1;
+                    Row = CurrentRoom.Rows - 1;
                     X--;
                     GetPosition(CurrentFloor);
                 }
@@ -82,11 +82,11 @@ namespace FinalProject.Combat
             }
             if (keyPress.Key == ConsoleKey.S)
             {
-                if (Row < CurrentRoom.Rows-1)
+                if (Row < CurrentRoom.Rows - 1)
                 {
                     Row += 1;
                 }
-                else if (Row == CurrentRoom.Rows-1 && Position == 1)
+                else if (Row == CurrentRoom.Rows - 1 && Position == 1)
                 {
                     Row = 0;
                     X++;
@@ -122,7 +122,7 @@ namespace FinalProject.Combat
             }
             if (keyPress.Key == ConsoleKey.D)
             {
-                if (Column < CurrentRoom.Columns-1)
+                if (Column < CurrentRoom.Columns - 1)
                 {
                     Column += 1;
                 }
@@ -144,8 +144,22 @@ namespace FinalProject.Combat
             {
                 IsDead = true;
             }
-            
+
         }
+
+        public async Task Attack(ILivingThings target)
+        {
+            while ((target.Row == Row + 1
+                || target.Row == Row
+                || target.Row == Row - 1)
+                && (target.Column == Column + 1
+                || target.Column == Column
+                || target.Column == Column - 1))
+            {
+                Combat.Attack(target.Health, Damage, target.Defense);
+            }
+        }
+
 
     }
 }
