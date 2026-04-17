@@ -10,5 +10,6 @@ namespace FinalProject.Interfaces
         int Health { get; set; }
         int Defense { get; set; }
         int Damage { get; set; }
+        bool IsDead { get; set; }
     }
 }

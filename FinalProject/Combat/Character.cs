@@ -5,10 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace FinalProject
+namespace FinalProject.Combat
 {
     internal class Character : ILivingThings
     {
+        private static Character _instance;
         public string Name { get; set; }
         public int Health { get; set; }
         public int Defense { get; set; }
@@ -23,13 +24,24 @@ namespace FinalProject
         public int Position { get; set; }
         public bool IsDead { get; set; } = false;
 
-        public Character(string name)
+        private Character(string name)
         {
             Name = name;
             Health = 10;
-            Defense = 10;
+            Defense = 2;
             Damage = 2;
             Inventory = new List<IItem>();
+        }
+
+        public static Character Instance
+        {
+            get {
+                if (_instance == null)
+                {
+                    _instance = new Character("");
+                }
+                return _instance;
+            }
         }
         public void GetPosition(Floor floor)
         {
@@ -43,6 +55,7 @@ namespace FinalProject
             // Ask user for a direction
             // if it is valid move to that return the new location
             // if not tell the user the move is invalid
+            Console.WriteLine(CurrentRoom.ToString());
             Console.WriteLine($"{Row}, {Column}");
             Console.WriteLine($"{Position}");
             Console.WriteLine("What direction do you want to go? (use wasd)");
@@ -53,7 +66,7 @@ namespace FinalProject
                 {
                     Row -= 1;
                 }
-                else if (Row == 0 && Position == 1)
+                else if (Row <= 0 && Position == 1)
                 {
                     Row = CurrentRoom.Rows-1;
                     X--;
@@ -93,7 +106,7 @@ namespace FinalProject
                 {
                     Column -= 1;
                 }
-                else if (Column == 0 && Position == 1)
+                else if (Column <= 0 && Position == 1)
                 {
                     Column = CurrentRoom.Columns - 1;
                     Y--;

@@ -1,4 +1,4 @@
-﻿using FinalProject;
+﻿using FinalProject.Combat;
 using FinalProject.Map;
 using FinalProject.Map.Rooms;
 
@@ -7,7 +7,7 @@ internal class Program
     private static void Main(string[] args)
     {
         Floor floor1 = new Floor();
-        Character player = new Character("Bob");
+        Character player = Character.Instance;
         player.GetPosition(floor1);
         Console.WriteLine(player.Name);
 

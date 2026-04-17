@@ -1,0 +1,16 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace FinalProject.Combat
+{
+    internal abstract class Combat
+    {
+        int Attack(int health, int damage, int defense)
+        {
+            return health - (damage - defense);
+        }
+
+
+    }
+}

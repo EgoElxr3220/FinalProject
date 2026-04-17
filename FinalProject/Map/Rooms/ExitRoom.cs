@@ -7,13 +7,15 @@ namespace FinalProject.Map.Rooms
 {
     internal class ExitRoom : IRoom
     {
-        public int Rows { get; set; } = 3;
-        public int Columns { get; set; } = 3;
-        public int[,] Tiles { get; set; } = new int[3, 3]
+        public int Rows { get; set; } = 5;
+        public int Columns { get; set; } = 5;
+        public int[,] Tiles { get; set; } = new int[5, 5]
         {
-            {0, 1, 0 },
-            {1, 8, 1 },
-            {0, 1, 0 }
+            { 0, 0, 1, 0, 0 },
+            { 0, 0, 0, 0, 0 },
+            { 1, 0, 8, 0, 1 },
+            { 0, 0, 0, 0, 0 },
+            { 0, 0, 1, 0, 0 }
         };
         
     }
