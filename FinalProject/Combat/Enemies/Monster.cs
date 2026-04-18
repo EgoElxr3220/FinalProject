@@ -22,6 +22,7 @@ namespace FinalProject.Combat.Enemies
 
         public Monster(IRoom room) 
         {
+
             Health = 10;
             Defense = 1;
             Damage = 5;
@@ -33,11 +34,15 @@ namespace FinalProject.Combat.Enemies
             while (target.Row == Row && target.Column == Column)
             {
                 Combat.Attack(target.Health, Damage, target.Defense);
-                Task.Delay(200);
-                Attack(target);
+                await Task.Delay(200);
+                await Attack(target);
             }
         }
 
+        public static Monster SpawnMonster(IRoom room)
+        {
+           return new Monster(room); 
+        }
 
         public async Task Move(Character player)
         {
