@@ -22,6 +22,11 @@ namespace FinalProject.Map
         {
             return Rooms[row, column];
         }
+
+        public void SaveFloorMap()
+        {
+
+        }
     }
 
     

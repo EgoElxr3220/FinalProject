@@ -15,17 +15,68 @@ namespace FinalProject.Combat.Enemies
         public bool IsDead { get; set; } = false;
         public int Row { get; set; }
         public int Column { get; set; }
-        public int X { get; set; }
-        public int Y { get; set; } 
+        public int PrevRow { get; set; }
+        public int PrevColumn { get; set; }
         public IRoom CurrentRoom { get; set; }
-        public Floor CurrentFloor { get; set; }
         public int Position { get; set; }
 
-        public Monster() 
+        public Monster(IRoom room) 
         {
             Health = 10;
             Defense = 1;
             Damage = 5;
+            CurrentRoom = room;
         }
+
+        public async Task Attack(ILivingThings target)
+        {
+            while (target.Row == Row && target.Column == Column)
+            {
+                Combat.Attack(target.Health, Damage, target.Defense);
+                Task.Delay(200);
+                Attack(target);
+            }
+        }
+
+
+        public async Task Move(Character player)
+        {
+            while (!player.IsDead)
+            {
+                PrevColumn = Column;
+                PrevRow = Row;
+                if (Row > player.Row)
+                {
+                    if (Row > 0)
+                    {
+                        Row -= 1;
+                    }
+                }
+                else if (Column > player.Column)
+                {
+                    if (Column > 0)
+                    {
+                        Column -= 1;
+                    }
+                }
+                if (Row < player.Row)
+                {
+                    if (Row < CurrentRoom.Rows - 1)
+                    {
+                        Row += 1;
+                    }
+                }
+                else if (Column < player.Column)
+                {
+                    if (Column < CurrentRoom.Columns - 1)
+                    {
+                        Column += 1;
+                    }
+                }
+                CurrentRoom.Tiles[PrevRow, PrevColumn] = 0;
+                CurrentRoom.Tiles[Row, Column] = 3;
+            }
+        }
+
     }
 }
