@@ -6,7 +6,7 @@ using System.Text;
 
 namespace FinalProject.Combat.Enemies
 {
-    internal class Monster : ILivingThings
+    public class Monster : ILivingThings
     {
         public string Name { get; set; }
         public int Health { get; set; }
@@ -20,28 +20,50 @@ namespace FinalProject.Combat.Enemies
         public IRoom CurrentRoom { get; set; }
         public int Position { get; set; }
 
-        public Monster(IRoom room) 
+        public Monster(Character player, IRoom room, int row, int column) 
         {
-
+            Name = "Monster";
+            Row = row;
+            Column = column;
             Health = 10;
             Defense = 1;
             Damage = 5;
             CurrentRoom = room;
+            Task move = Move(player);
+            Task.WaitAll(move);
         }
 
         public async Task Attack(ILivingThings target)
         {
             while (target.Row == Row && target.Column == Column)
             {
-                Combat.Attack(target.Health, Damage, target.Defense);
+                target.Health = Combat.Attack(target.Health, Damage, target.Defense);
+                Console.WriteLine($"Monster deals {Damage - target.Defense} damage to {target.Name}");
                 await Task.Delay(200);
                 await Attack(target);
             }
         }
 
-        public static Monster SpawnMonster(IRoom room)
+        public static async Task SpawnMonsters(Character player)
         {
-           return new Monster(room); 
+            while (!player.IsDead)
+            {
+                for (int i = 0; i < player.CurrentRoom.Rows; i++)
+                {
+                    for (int j = 0; j < player.CurrentRoom.Columns; j++)
+                    {
+                        if (player.CurrentRoom.Tiles[i, j] == 3)
+                        {
+                            new Monster(player, player.CurrentRoom, i, j);
+                            return;
+                        }
+                        else
+                        {
+                            return;
+                        }
+                    }
+                }
+            }
         }
 
         public async Task Move(Character player)
@@ -64,7 +86,7 @@ namespace FinalProject.Combat.Enemies
                         Column -= 1;
                     }
                 }
-                if (Row < player.Row)
+                else if (Row < player.Row)
                 {
                     if (Row < CurrentRoom.Rows - 1)
                     {
@@ -78,10 +100,13 @@ namespace FinalProject.Combat.Enemies
                         Column += 1;
                     }
                 }
+                else if (player.Row == Row && player.Column == Column)
+                {
+                    Attack(player);
+                }
                 CurrentRoom.Tiles[PrevRow, PrevColumn] = 0;
                 CurrentRoom.Tiles[Row, Column] = 3;
             }
         }
-
     }
 }

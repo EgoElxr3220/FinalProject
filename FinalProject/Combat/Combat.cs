@@ -6,10 +6,7 @@ namespace FinalProject.Combat
 {
     internal abstract class Combat
     {
-        public static int Attack(int health, int damage, int defense)
-        {
-            return health - (damage - defense);
-        }
+        public static int Attack(int health, int damage, int defense) => health - (damage - defense);
 
 
     }

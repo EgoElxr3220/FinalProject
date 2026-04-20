@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FinalProject.Interfaces
 {
-    internal interface IRoom
+    public interface IRoom
     {
         public int Rows { get; set; }
         public int Columns { get; set; }

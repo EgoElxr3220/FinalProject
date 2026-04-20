@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FinalProject.Interfaces
 {
-    internal interface IItem
+    public interface IItem
     {
     }
 }

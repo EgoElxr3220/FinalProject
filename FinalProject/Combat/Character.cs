@@ -7,7 +7,7 @@ using System.Text;
 
 namespace FinalProject.Combat
 {
-    internal class Character : ILivingThings
+    public class Character : ILivingThings
     {
         private static Character _instance;
         public string Name { get; set; }
@@ -15,8 +15,8 @@ namespace FinalProject.Combat
         public int Defense { get; set; }
         public int Damage { get; set; }
         public List<IItem> Inventory { get; set; }
-        public int Row { get; set; }
-        public int Column { get; set; }
+        public int Row { get; set; } = 4;
+        public int Column { get; set; } = 2;
         public int X { get; set; } = 4;
         public int Y { get; set; } = 2;
         public IRoom CurrentRoom { get; set; }
@@ -38,23 +38,29 @@ namespace FinalProject.Combat
             get {
                 if (_instance == null)
                 {
-                    _instance = new Character("");
+                    _instance = new Character("Bob");
                 }
                 return _instance;
             }
         }
-        public void GetPosition(Floor floor)
+        public async void GetPosition(Floor floor)
         {
             CurrentFloor = floor;
             CurrentRoom = CurrentFloor.GetRoom(X, Y);
             Position = CurrentRoom.Tiles[Row, Column];
         }
 
+        public void Die()
+        {
+            if (Health <= 0)
+            {
+                IsDead = true;
+            }
+        }
+
         public async Task Move()
         {
-            // Ask user for a direction
-            // if it is valid move to that return the new location
-            // if not tell the user the move is invalid
+            
             Console.WriteLine(CurrentRoom.ToString());
             Console.WriteLine($"{Row}, {Column}");
             Console.WriteLine($"{Position}");
@@ -144,7 +150,7 @@ namespace FinalProject.Combat
             {
                 IsDead = true;
             }
-
+            
         }
 
         public async Task Attack(ILivingThings target)

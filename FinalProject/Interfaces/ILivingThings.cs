@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FinalProject.Interfaces
 {
-    internal interface ILivingThings
+    public interface ILivingThings
     {
         string Name { get; set; }
         int Health { get; set; }

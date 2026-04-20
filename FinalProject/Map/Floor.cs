@@ -7,7 +7,7 @@ using System.Text.Json;
 
 namespace FinalProject.Map
 {
-    internal class Floor
+    public class Floor
     {
         public string SavePath { get; set; }
         public IRoom[,] Rooms { get; set; } = new IRoom[5,5] 
@@ -19,10 +19,9 @@ namespace FinalProject.Map
             { new TreasureRoom(), new TrapRoom(), new EmptyRoom(), new MonsterRoom(), new MonsterRoom() }
         };
 
-        public Floor(/*string savePath, IRoom[,] rooms*/)
+        public Floor(string savePath)
         {
-            //SavePath = savePath;
-            //Rooms = rooms;
+            SavePath = savePath;
         }
 
         public IRoom GetRoom(int row, int column)
@@ -30,10 +29,24 @@ namespace FinalProject.Map
             return Rooms[row, column];
         }
 
-        
         public void SaveFloorMap()
         {
-            JsonSerializer.Serialize(this);
+            string savedMap = JsonSerializer.Serialize(this);
+            File.WriteAllText(savedMap, SavePath);
+        }
+
+        public void LoadFloorMap()
+        {
+            string loadedMap = File.ReadAllText(SavePath);
+            try
+            { 
+                Rooms = JsonSerializer.Deserialize<IRoom[,]>(loadedMap); 
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"ERROR: {ex}");
+            }
+            
         }
     }
 

@@ -7,39 +7,30 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        Floor floor1 = new Floor();
+        string path = @"";
+        Floor floor1 = new Floor(path);
         Character player = Character.Instance;
+        bool spawnMonster = false;
         player.GetPosition(floor1);
-        Console.WriteLine(player.Name);
 
         bool playing = true;
 
         int lines = 0;
         while (playing)
         {
-            player.Move();
-            while (!player.IsDead)
-            {
-                for (int i = 0; i < player.CurrentRoom.Rows; i++)
-                {
-                    for (int j = 0; j < player.CurrentRoom.Columns; j++)
-                    {
-                        if (player.CurrentRoom.Tiles[i,j] == 3)
-                        {
-                            Monster.SpawnMonster(player.CurrentRoom);
-                        }
-                    }
-                }
-            }
+            Task playerMovement = player.Move();
+            Task monsterSpawn = Monster.SpawnMonsters(player);
+            
             if (player.IsDead)
             {
-                break;
+                playing = false;
             }
             lines++;
             if (lines%10 == 0)
             {
                 Console.Clear();
             }
+            Task.WaitAll(playerMovement,monsterSpawn);
         }
         //Console.Clear();
 
